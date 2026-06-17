@@ -217,6 +217,6 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Project assets (ignore the folder, but keep the logo for the README)
-assets/
+# Project assets (ignore the folder's contents, but keep the logo for the README)
+assets/*
 !assets/logo.png
