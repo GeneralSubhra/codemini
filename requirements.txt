@@ -1,2 +1,5 @@
 openai 
 click
+rich
+tiktoken
+python-dotenv

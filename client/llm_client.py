@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import asyncio
 import os
 
-from client.response import StreamEvent, TextDelta, TokenUsage, EventType
+from client.response import StreamEventType, TextDelta, TokenUsage, StreamEvent
 
 load_dotenv()
 
@@ -57,7 +57,7 @@ class LLMClient:
                     await asyncio.sleep(retry_delay)
                 else:
                     yield StreamEvent(
-                        type=EventType.ERROR,
+                        type=StreamEventType.ERROR,
                         error=f"Rate limit exceeded after : {e}",
                     )
                     return
@@ -69,14 +69,14 @@ class LLMClient:
                     await asyncio.sleep(retry_delay)
                 else:
                     yield StreamEvent(
-                        type=EventType.ERROR,
+                        type=StreamEventType.ERROR,
                         error=f"Connection error : {e}",
                     )
                     return
 
             except APIError as e:
                     yield StreamEvent(
-                        type=EventType.ERROR,
+                        type=StreamEventType.ERROR,
                         error=f"API error : {e}",
                     )
                     return
@@ -110,11 +110,11 @@ class LLMClient:
                 finish_reason=choice.finish_reason
             if delta.content:
                 yield StreamEvent(
-                    type=EventType.TEXT_DELTA,
+                    type=StreamEventType.TEXT_DELTA,
                     text_delta=TextDelta(content=delta.content)
                 )
         yield StreamEvent(
-            type=EventType.MESSAGE_COMPLETE,
+            type=StreamEventType.MESSAGE_COMPLETE,
             finish_reason=finish_reason,
             usage=usage,
         )         
@@ -140,7 +140,7 @@ class LLMClient:
                 cached_tokens=response.usage.prompt_tokens_details.cached_tokens
             ) 
         return StreamEvent(
-            type=EventType.MESSAGE_COMPLETE,
+            type=StreamEventType.MESSAGE_COMPLETE,
             text_delta=text_delta,
             finish_reason=choice.finish_reason,
             usage=usage
