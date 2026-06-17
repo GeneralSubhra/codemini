@@ -1,6 +1,12 @@
+<div align="center">
+
+<img src="assets/logo.png" alt="codemini logo" width="200" />
+
 # codemini
 
 > A CLI coding agent, built from scratch — inspired by [Claude Code](https://claude.com/claude-code).
+
+</div>
 
 **codemini** is a terminal-based AI agent that talks to any OpenAI-compatible LLM and streams responses straight into your shell. It's the foundation for a fully-fledged coding assistant: today it does streaming chat over a clean, event-driven agent loop; the roadmap below covers where it's headed (tools, multi-turn sessions, file editing, and more).
 

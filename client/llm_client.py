@@ -57,7 +57,7 @@ class LLMClient:
                     await asyncio.sleep(retry_delay)
                 else:
                     yield StreamEvent(
-                        type=StreamEventType.ERROR,
+                        type=StreamStreamEventType.ERROR,
                         error=f"Rate limit exceeded after : {e}",
                     )
                     return
