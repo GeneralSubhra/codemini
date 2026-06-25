@@ -1,14 +1,18 @@
 <div align="center">
 
-<img src="assets/logo.png" alt="codemini logo" width="200" />
+<br />
 
-# codemini
+<img src="assets/logo.png" alt="CodeMini logo" width="380" />
+
+# CodeMini
 
 > A CLI coding agent, built from scratch — inspired by [Claude Code](https://claude.com/claude-code).
 
+<br />
+
 </div>
 
-**codemini** is a terminal-based AI agent that talks to any OpenAI-compatible LLM and streams responses straight into your shell. It's the foundation for a fully-fledged coding assistant: today it does streaming chat over a clean, event-driven agent loop; the roadmap below covers where it's headed (tools, multi-turn sessions, file editing, and more).
+**CodeMini** is a terminal-based AI agent that talks to any OpenAI-compatible LLM and streams responses straight into your shell. It's the foundation for a fully-fledged coding assistant: today it does streaming chat over a clean, event-driven agent loop; the roadmap below covers where it's headed (tools, multi-turn sessions, file editing, and more).
 
 > ⚠️ **Status: work in progress.** The core agent loop and streaming client are functional. Tool use, interactive sessions, and code-editing capabilities are not implemented yet.
 
@@ -27,7 +31,7 @@
 
 ## Architecture
 
-codemini is split into three decoupled layers connected by a stream of events:
+CodeMini is split into three decoupled layers connected by a stream of events:
 
 ```
                   ┌───────────────────────────────────────────────┐
@@ -141,7 +145,7 @@ The answer streams to your terminal as it's generated.
 
 ## Roadmap
 
-codemini is early. Planned work toward a Claude Code–style experience:
+CodeMini is early. Planned work toward a Claude Code–style experience:
 
 - [ ] **Interactive REPL** — multi-turn conversation with persistent history
 - [ ] **Tool / function calling** — let the agent run shell commands, read/write files, and search

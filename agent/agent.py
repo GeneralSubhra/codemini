@@ -13,8 +13,8 @@ class Agent:
 
     async def run(self, message: str) -> AsyncGenerator[AgentEvent, None]:
         yield AgentEvent.agent_start(message)
-        final_response = None
-
+        final_response:str | None = None
+ 
         async for event in self._agentic_loop(message):
             yield event
             if event.type == AgentEventType.TEXT_COMPLETE:
@@ -38,8 +38,9 @@ class Agent:
                     response_text += content
                     yield AgentEvent.text_delta(content)
             elif event.type == StreamEventType.ERROR:
-                yield AgentEvent.agent_error(event.error or "Unknown Error")
-                return
+                yield AgentEvent.agent_error(
+                    event.error or "Unknown Error"
+                )
 
         if response_text:
             yield AgentEvent.text_complete(response_text)

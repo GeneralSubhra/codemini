@@ -22,21 +22,32 @@ class CLI:
         if not self.agent:
             return None
 
-        response_text = ""
+        assistant_streaming = False
+        final_response:str | None = None
+
+
         async for event in self.agent.run(message):
             if event.type == AgentEventType.TEXT_DELTA:
                 content = event.data.get("content", "")
-                response_text += content
+                if not assistant_streaming:
+                    self.renderer.begin_assistant()
+                    assistant_streaming = True
                 self.renderer.stream_assistant_delta(content)
-            elif event.type == AgentEventType.AGENT_ERROR:
-                self.renderer.render_error(event.data.get("error", "Unknown error"))
-                return None
-
-        self.renderer.finish_stream()
-        return response_text
-
-
-
+            elif event.type==AgentEventType.TEXT_COMPLETE:
+                final_response=event.data.get("content")
+                if assistant_streaming:
+                    self.renderer.end_assistant()
+                    assistant_streaming=False
+            elif event.type==AgentEventType.AGENT_ERROR:
+                error=event.data.get("error","Unknown error occorred")
+                if assistant_streaming:
+                    self.renderer.end_assistant()
+                    assistant_streaming=False
+                self.renderer.console.print(f"\n[error]Error: {error}[/error]")
+   
+        return final_response    
+            
+                 
 @click.command()
 @click.argument("prompt", required=False)
 def main(
