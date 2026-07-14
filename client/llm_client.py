@@ -35,7 +35,7 @@ class LLMClient:
 
         client=self.get_client()
         kwargs={
-            "model":"nex-agi/nex-n2-pro:free",
+            "model":os.getenv("MODEL_NAME"),
             "messages":messages,
             "stream":stream
         }
